@@ -41,7 +41,31 @@ function LList(){
             console.log(currentNode.next.element)
             currentNode = currentNode.next
         }
-    } 
+    }
+    // 尾插法 反转单链表
+    this.reverseList = () => {
+        const root = new Node()
+        let currentNode = this.head.next
+        while(currentNode) {
+            let next = currentNode.next
+            currentNode.next = root.next
+            root.next = currentNode
+            currentNode = next
+        }
+        this.head = root
+    }
+
+    this.reverseList1 = () => {
+        let previousNode = null
+        let currentNode = this.head.next
+        while(currentNode) {
+            let next = currentNode.next //暂存
+            currentNode.next = previousNode
+            previousNode = currentNode
+            currentNode = next
+        }
+        this.head.next = previousNode //因为这是currentNode已经变成null了
+    }
 }
 
 const fruits = new LList()
@@ -49,6 +73,6 @@ fruits.insert('Apple', 'head')
 fruits.insert('Banana', 'Apple')
 fruits.insert('Pear', 'Banana')
 fruits.display()
-fruits.remove('Banana')
 console.log('-----------')
+fruits.reverseList1()
 fruits.display()
